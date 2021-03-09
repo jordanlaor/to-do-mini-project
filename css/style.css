@@ -53,8 +53,8 @@ h4 {
 }
 
 .tasks {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-auto-rows: max-content;
   gap: 10px;
 }
 
@@ -154,7 +154,6 @@ h4 {
   position: absolute;
   top: 50%;
   left: 50%;
-  border-radius: 5px;
   border-width: 0 15px 15px 0;
   border-style: solid;
   transform: scale(0);
