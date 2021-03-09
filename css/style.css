@@ -1,0 +1,47 @@
+/* font-family: 'Cuprum', sans-serif;
+font-family: 'Montserrat', sans-serif; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #577590;
+  color: #ffffff;
+  font-size: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.none {
+  display: none;
+}
+
+.page {
+  display: grid;
+  grid-template-rows: max-content max-content 1fr max-content;
+  height: -webkit-fill-available;
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: "Cuprum", sans-serif;
+  font-size: 50px;
+  line-height: 1;
+  margin: 20px auto;
+  text-align: center;
+}
+
+h1 {
+  margin-block-start: 0;
+  margin-block-end: 0;
+  font-weight: 700;
+}
+
+h4 {
+  font-weight: 300;
+}
