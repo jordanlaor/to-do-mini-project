@@ -22,7 +22,8 @@ html {
   display: grid;
   grid-template-rows: max-content max-content 1fr max-content;
   height: -webkit-fill-available;
-  padding: 40px;
+  padding: 30px;
+  gap: 10px;
 }
 
 .header {
@@ -44,4 +45,62 @@ h1 {
 
 h4 {
   font-weight: 300;
+}
+
+.tasks__wrapper {
+  overflow-y: scroll;
+  padding-right: 5px;
+}
+
+.task-item {
+  display: grid;
+  grid-template-columns: max-content 1fr max-content;
+  border-radius: 10px;
+}
+
+.task-item__left,
+.task-item__center,
+.task-item__right {
+  margin: 10px;
+  height: 170px;
+}
+
+.task-item__left {
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.task-item__btns {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn {
+  background-color: #ffffff20;
+  padding: 5px;
+  font-size: 1.3rem;
+  border: #ffffff 1px solid;
+  border-radius: 10px;
+  text-align: center;
+  width: max-content;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #ffffff40;
+}
+
+.task-item__rigth {
+  width: 170px;
+}
+.task-item__checkbox {
+  width: 170px;
+  height: 170px;
+  border-radius: 10px;
+}
+
+[data-importance="red"] {
+  background-color: #f94144;
 }
