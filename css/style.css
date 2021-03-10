@@ -121,11 +121,15 @@ h4 {
   flex-direction: column;
   justify-content: space-between;
   padding: 0 15px;
+  overflow-x: hidden;
 }
 
 .task-item__name {
   font-weight: 800;
   font-size: 4em;
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .task-item__creation {
