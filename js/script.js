@@ -7,6 +7,10 @@ const functions = {
   newTask() {
     const popup = document.querySelector('.popup');
     popup.classList.remove('none');
+    [...popup.children].forEach((popupChild) => popupChild.classList.add('none'));
+    const popupNew = popup.querySelector('.popup__new-task');
+    popup.classList.remove('none');
+    popupNew.classList.remove('none');
     document.querySelector('.btn-add-task').addEventListener('click', addItem);
     document.querySelector('#category').addEventListener('input', updateCategoryImg);
   },
@@ -24,9 +28,11 @@ let sortBy;
 
 function addItem(e) {
   const popup = document.querySelector('.popup');
+  [...popup.children].forEach((popupChild) => popupChild.classList.add('none'));
+  const popupNew = popup.querySelector('.popup__new-task');
   const category = document.querySelector('#category').value;
   category.value = '';
-  const importance = [...document.querySelectorAll('input[name="importance"]')].find((radio) => radio.checked).value;
+  const importance = [...popupNew.querySelectorAll('input[name="importance"]')].find((radio) => radio.checked).value;
   const taskName = document.querySelector('#taskName').value;
   taskName.value = '';
   const task = {
@@ -85,7 +91,7 @@ function addTaskToDOM(task) {
   document.querySelector('.tasks').appendChild(taskItem);
   task.HTMLElement = taskItem;
   taskItem.querySelector('.task-item__checkbox-wrapper').addEventListener('change', toggleCompletion);
-  taskItem.querySelector('.btn-update').addEventListener('click', updateTask);
+  taskItem.querySelector('.btn-update').addEventListener('click', editTask);
   taskItem.querySelector('.btn-delete').addEventListener('click', () => deleteTask(task, taskItem));
   const isCompleted = taskItem.querySelector('[type="checkbox"]');
   if (task.isCompleted) {
@@ -94,7 +100,52 @@ function addTaskToDOM(task) {
   }
 }
 
-function updateTask(e) {}
+function editTask(e) {
+  const index = tasksObject.tasks.findIndex(
+    (taskFromObject) =>
+      taskFromObject.taskId === parseInt(e.target.parentElement.parentElement.parentElement.dataset.taskId)
+  );
+  const popup = document.querySelector('.popup');
+  [...popup.children].forEach((popupChild) => popupChild.classList.add('none'));
+  const popupUpdate = popup.querySelector('.popup__edit-task');
+  popup.classList.remove('none');
+  popupUpdate.classList.remove('none');
+  document.querySelector('.btn-update-task').addEventListener('click', () => updateTask(index));
+  document.querySelector('#category-edit').addEventListener('input', updateCategoryImg);
+  popupUpdate.querySelector('#taskName-edit').value = tasksObject.tasks[index].taskName;
+  const category = popupUpdate.querySelector('#category-edit');
+  category.value = tasksObject.tasks[index].category;
+  popupUpdate.querySelector('#category-edit').parentElement.querySelector('.new-task-img').src = document
+    .querySelector('.new-task-img')
+    .src.replace(/-\d+.png/, `-${category.value}.png`);
+  [...popupUpdate.querySelectorAll('[name="importance-edit"]')]
+    .find((radio) => tasksObject.tasks[index].importance === radio.value)
+    .click();
+}
+
+function updateTask(index) {
+  const popup = document.querySelector('.popup');
+  [...popup.children].forEach((popupChild) => popupChild.classList.add('none'));
+  const popupUpdate = popup.querySelector('.popup__edit-task');
+  popup.classList.remove('none');
+  popupUpdate.classList.remove('none');
+  const category = document.querySelector('#category-edit').value;
+  category.value = '';
+  const importance = [...popupUpdate.querySelectorAll('input[name="importance-edit"]')].find((radio) => radio.checked)
+    .value;
+  const taskName = document.querySelector('#taskName-edit').value;
+  taskName.value = '';
+  const task = tasksObject.tasks[index];
+  task.category = category;
+  task.importance = importance;
+  task.taskName = taskName;
+  popup.classList.add('none');
+  tasksObject.tasks[index] = task;
+  task.HTMLElement.remove();
+  addTaskToDOM(task);
+  updateLocalStorage();
+  sortTasks();
+}
 
 function deleteTask(task, taskItem) {
   taskItem.remove();
@@ -114,6 +165,7 @@ function toggleCompletion(e) {
   const task = getTaskById(parseInt(e.target.parentElement.parentElement.parentElement.dataset.taskId));
   task.isCompleted = e.target.checked;
   updateLocalStorage();
+  sortTasks();
 }
 
 function handleLoad() {
@@ -123,6 +175,7 @@ function handleLoad() {
   };
   document.querySelector('.controls__btns-wrapper').addEventListener('click', controlsBtnsClick);
   tasksObject.tasks.forEach((task) => addTaskToDOM(task));
+  sortTasks();
 }
 
 function updateLocalStorage() {
@@ -137,6 +190,7 @@ function controlsBtnsClick(e) {
 
 function sortTasks() {
   let sortFunction;
+  sortBy = document.querySelector('#sortBy').value;
   switch (sortBy) {
     case 'importance--ascending':
       sortFunction = function (taskA, taskB) {
@@ -192,7 +246,9 @@ function sortTasks() {
   if (sortFunction && tasksObject.tasks.length) {
     tasksObject.tasks.sort(sortFunction);
   }
-
+  document.querySelector('.num-of-completed-tasks').textContent = tasksObject.tasks.filter(
+    (taskFromObject) => taskFromObject.isCompleted
+  ).length;
   updateHTMLRows();
 }
 
@@ -202,26 +258,22 @@ function updateHTMLRows() {
   });
 }
 
-function updateCategoryImg() {
-  const categoryNum = document.querySelector('#category');
+function updateCategoryImg(e) {
+  const categoryNum = e.target;
   if (parseInt(categoryNum.value) > parseInt(categoryNum.max)) {
     categoryNum.value = categoryNum.max;
   }
+
   if (parseInt(categoryNum.value) < parseInt(categoryNum.min)) {
     categoryNum.value = categoryNum.min;
   }
 
-  document.querySelector('.new-task-img').src = document
+  e.target.parentElement.querySelector('.new-task-img').src = document
     .querySelector('.new-task-img')
     .src.replace(/-\d+.png/, `-${categoryNum.value}.png`);
 }
 
 document.querySelector('#sortBy').addEventListener('change', (e) => {
-  sortBy = e.target.value;
-  sortTasks();
-});
-
-document.querySelector('#sortBy').addEventListener('load', (e) => {
   sortBy = e.target.value;
   sortTasks();
 });

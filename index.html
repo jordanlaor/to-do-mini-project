@@ -47,7 +47,7 @@
         <section class="tasks"></section>
       </main>
       <footer class="footer">
-        <h3><span class="num-of-today-tasks">30</span> tasks completed today!</h3>
+        <h3><span class="num-of-completed-tasks"> </span> tasks completed today!</h3>
       </footer>
       <div class="popup none">
         <div class="popup__new-task">
@@ -68,6 +68,31 @@
             <label for="red" class="importance-choice"></label>
           </div>
           <div class="btn btn-add-task">Add Task</div>
+        </div>
+        <div class="popup__edit-task">
+          <input type="text" name="taskName-edit" id="taskName-edit" placeholder="Task Name" />
+          <div class="category-wrapper">
+            <label for="category-edit">Icon:</label>
+            <input
+              type="number"
+              name="category-edit"
+              id="category-edit"
+              min="1"
+              max="16"
+              value="1"
+            />
+            <img class="new-task-img" src="./images/categoryIcons/category-1.png" alt="" />
+          </div>
+          <div class="importance-choice-wrapper">
+            <div>Importance:</div>
+            <input type="radio" name="importance-edit" id="green-update" value="green" />
+            <label for="green-update" class="importance-choice"></label>
+            <input type="radio" name="importance-edit" id="orange-update" value="orange" />
+            <label for="orange-update" class="importance-choice"></label>
+            <input type="radio" name="importance-edit" id="red-update" value="red" />
+            <label for="red-update" class="importance-choice"></label>
+          </div>
+          <div class="btn btn-update-task">Update Task</div>
         </div>
       </div>
     </div>

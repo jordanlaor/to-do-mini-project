@@ -226,7 +226,7 @@ h4 {
   color: #ffffffa0;
 }
 
-.num-of-today-tasks {
+.num-of-completed-tasks {
   font-size: 1.3em;
   font-weight: 800;
   color: #ffffff;
@@ -243,18 +243,21 @@ h4 {
   align-items: center;
 }
 
-.popup__new-task {
+.popup__new-task,
+.popup__edit-task {
   display: flex;
   flex-direction: column;
   gap: 15px;
   text-align: center;
 }
 
-.popup__new-task input {
+.popup__new-task input,
+.popup__edit-task input {
   font-size: 25px;
   font-family: "Montserrat", sans-serif;
   padding: 7px;
 }
+
 .new-task-img {
   width: 80px;
 }
@@ -279,23 +282,28 @@ h4 {
   opacity: 0.9;
 }
 
-[name="importance"]:checked + .importance-choice {
+[name="importance"]:checked + .importance-choice,
+[name="importance-edit"]:checked + .importance-choice {
   border: #ffffffa0 2px solid;
 }
 
-.importance-choice[for="red"] {
+.importance-choice[for="red"],
+.importance-choice[for="red-update"] {
   background-color: #f94144;
 }
 
-.importance-choice[for="orange"] {
+.importance-choice[for="orange"],
+.importance-choice[for="orange-update"] {
   background-color: #f8961e;
 }
 
-.importance-choice[for="green"] {
+.importance-choice[for="green"],
+.importance-choice[for="green-update"] {
   background-color: #90be6d;
 }
 
-input[name="importance"] {
+input[name="importance"],
+input[name="importance-edit"] {
   opacity: 0;
   width: 0;
   height: 0;
