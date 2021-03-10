@@ -15,7 +15,7 @@ html {
 }
 
 .none {
-  display: none;
+  display: none !important;
 }
 
 .page {
@@ -24,6 +24,7 @@ html {
   height: 100vh;
   padding: 30px;
   gap: 10px;
+  position: relative;
 }
 
 .header {
@@ -45,6 +46,11 @@ h1 {
 
 h4 {
   font-weight: 300;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 
 .tasks__wrapper {
@@ -78,9 +84,14 @@ h4 {
   justify-content: space-between;
 }
 
-.task-item__btns {
+.task-item__btns,
+.controls__btns-wrapper {
   display: flex;
   justify-content: space-between;
+}
+
+.controls__btns-wrapper {
+  gap: 5px;
 }
 
 .btn {
@@ -101,6 +112,7 @@ h4 {
 .btn:active {
   cursor: pointer;
   background-color: #ffffff;
+  color: #577590;
 }
 
 .task-item__center {
@@ -218,4 +230,73 @@ h4 {
   font-size: 1.3em;
   font-weight: 800;
   color: #ffffff;
+}
+
+.popup {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #577590b6;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup__new-task {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  text-align: center;
+}
+
+.popup__new-task input {
+  font-size: 25px;
+  font-family: "Montserrat", sans-serif;
+  padding: 7px;
+}
+.new-task-img {
+  width: 80px;
+}
+
+.importance-choice-wrapper,
+.category-wrapper {
+  display: flex;
+  font-size: 25px;
+  justify-content: space-between;
+  gap: 1px;
+  align-items: center;
+}
+
+.importance-choice {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+}
+
+.importance-choice:hover {
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+[name="importance"]:checked + .importance-choice {
+  border: #ffffffa0 2px solid;
+}
+
+.importance-choice[for="red"] {
+  background-color: #f94144;
+}
+
+.importance-choice[for="orange"] {
+  background-color: #f8961e;
+}
+
+.importance-choice[for="green"] {
+  background-color: #90be6d;
+}
+
+input[name="importance"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }

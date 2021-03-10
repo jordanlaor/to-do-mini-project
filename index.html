@@ -20,21 +20,28 @@
         <h4>Every Day To Do App</h4>
       </header>
       <nav class="controls">
-        <label for="sortBy">Sort by:</label>
-        <select name="sortBy" id="sortBy">
-          <optgroup label="ascending">
-            <option value="importance--ascending" label="Importance"></option>
-            <option value="created--ascending" label="Creation date"></option>
-            <option value="completion--ascending" label="Not completed first"></option>
-            <option value="name--ascending" label="Name"></option>
-          </optgroup>
-          <optgroup label="descending">
-            <option value="importance--descending" label="Importance" selected></option>
-            <option value="created--descending" label="Creation date"></option>
-            <option value="completion--descending" label="Completed first"></option>
-            <option value="name--descending" label="Name"></option>
-          </optgroup>
-        </select>
+        <label for="sortBy"
+          >Sort by:
+          <select name="sortBy" id="sortBy">
+            <optgroup label="ascending">
+              <option value="importance--ascending" label="Importance"></option>
+              <option value="created--ascending" label="Creation date"></option>
+              <option value="completion--ascending" label="Not completed first"></option>
+              <option value="name--ascending" label="Name"></option>
+            </optgroup>
+            <optgroup label="descending">
+              <option value="importance--descending" label="Importance" selected></option>
+              <option value="created--descending" label="Creation date"></option>
+              <option value="completion--descending" label="Completed first"></option>
+              <option value="name--descending" label="Name"></option>
+            </optgroup>
+          </select>
+        </label>
+        <div class="controls__btns-wrapper">
+          <div class="btn btn-add" data-function="newTask">New Task</div>
+          <div class="btn btn-refresh" data-function="refresh">Refresh</div>
+          <div class="btn btn-delete-list" data-function="deleteList">Delete List</div>
+        </div>
       </nav>
       <main class="tasks__wrapper">
         <section class="tasks"></section>
@@ -42,7 +49,27 @@
       <footer class="footer">
         <h3><span class="num-of-today-tasks">30</span> tasks completed today!</h3>
       </footer>
-      <div class="popup none"></div>
+      <div class="popup none">
+        <div class="popup__new-task">
+          <!-- importance, category, taskName -->
+          <input type="text" name="taskName" id="taskName" placeholder="Task Name" />
+          <div class="category-wrapper">
+            <label for="category">Icon:</label>
+            <input type="number" name="category" id="category" min="1" max="16" value="1" />
+            <img class="new-task-img" src="./images/categoryIcons/category-1.png" alt="" />
+          </div>
+          <div class="importance-choice-wrapper">
+            <div>Importance:</div>
+            <input type="radio" name="importance" id="green" value="green" checked />
+            <label for="green" class="importance-choice"></label>
+            <input type="radio" name="importance" id="orange" value="orange" />
+            <label for="orange" class="importance-choice"></label>
+            <input type="radio" name="importance" id="red" value="red" />
+            <label for="red" class="importance-choice"></label>
+          </div>
+          <div class="btn btn-add-task">Add Task</div>
+        </div>
+      </div>
     </div>
     <script src="./js/script.js"></script>
   </body>
