@@ -25,8 +25,10 @@ let sortBy;
 function addItem(e) {
   const popup = document.querySelector('.popup');
   const category = document.querySelector('#category').value;
+  category.value = '';
   const importance = [...document.querySelectorAll('input[name="importance"]')].find((radio) => radio.checked).value;
   const taskName = document.querySelector('#taskName').value;
+  taskName.value = '';
   const task = {
     taskId: tasksObject.taskId++,
     category,
@@ -83,12 +85,24 @@ function addTaskToDOM(task) {
   document.querySelector('.tasks').appendChild(taskItem);
   task.HTMLElement = taskItem;
   taskItem.querySelector('.task-item__checkbox-wrapper').addEventListener('change', toggleCompletion);
-
+  taskItem.querySelector('.btn-update').addEventListener('click', updateTask);
+  taskItem.querySelector('.btn-delete').addEventListener('click', () => deleteTask(task, taskItem));
   const isCompleted = taskItem.querySelector('[type="checkbox"]');
   if (task.isCompleted) {
     isCompleted.parentElement.classList.add('completed');
     isCompleted.checked = task.isCompleted;
   }
+}
+
+function updateTask(e) {}
+
+function deleteTask(task, taskItem) {
+  taskItem.remove();
+  const index = tasksObject.tasks.findIndex((taskFromList) => taskFromList === task);
+  if (index >= 0) {
+    tasksObject.tasks.splice(index, 1);
+  }
+  updateLocalStorage();
 }
 
 function getTaskById(id) {
